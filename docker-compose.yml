@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  react:
+    build:
+      context: ./todo-app
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    command: sh -c "npm install --dev --silent && npm start"
+    volumes:
+      - ./todo-app:/todo-app
