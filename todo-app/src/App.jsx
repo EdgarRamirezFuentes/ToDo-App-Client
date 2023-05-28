@@ -20,6 +20,7 @@ import SearchTask from './components/SearchTask';
 import TaskTable from './components/TaskTable';
 import Load from './components/Load';
 import PaginationComponent from './components/Pagination';
+import TimeAverage from './components/TimeAverage';
 
 const MySwal = withReactContent(Swal);
 
@@ -40,7 +41,7 @@ function App() {
     })
   }, []);
 
-  const hadleAddTask = () => {
+  const handleAddTask = () => {
     MySwal.fire({
       title: 'Add Task',
       html: (
@@ -138,7 +139,9 @@ function App() {
 
   return (
     <>
-      <Container>
+      <Container
+        className='m-5'
+      >
         <Row>
           <Col className='text-center'>
             <h1>ToDo App</h1>
@@ -156,7 +159,7 @@ function App() {
           <Col xs={4}>
             <Button 
               variant='success' 
-              onClick={hadleAddTask}
+              onClick={handleAddTask}
               className='m-3 w-50'
               >
                 Add Task
@@ -183,6 +186,20 @@ function App() {
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             />
+          </Col>
+        </Row>
+        <Row>
+          <Col className='d-flex justify-content-center align-items-center my-3'>
+            <TimeAverage
+            tasks={tasks}
+            />
+          </Col>
+        </Row>
+        <Row
+          className='mt-5'
+        >
+          <Col className='text-center'>
+            <p>Created by <a href='https://github.com/EdgarRamirezFuentes' target='_blank' rel='noreferrer'>Edgar Ramirez</a></p>
           </Col>
         </Row>
       </Container>

@@ -224,7 +224,25 @@ const Task = ({
         })
     }
 
+    const getBackgroundColor = (dueDate) => {
+        if (dueDate === null) {
+            return 'bg-white';
+        }
 
+        const today = new Date();
+        const due = new Date(dueDate);
+
+        // Gettting the difference in weeks
+        const diff = Math.ceil((due.getTime() - today.getTime()) / (1000 * 3600 * 24 * 7));
+
+        if (diff <= 1) {
+            return 'bg-danger';
+        } else if (diff <= 2) {
+            return 'bg-warning';
+        } else {
+            return 'bg-success'
+        }
+    }
 
     const formatTableDate = (date) => {
         if (!date) {
@@ -237,7 +255,9 @@ const Task = ({
 
     return (
         <>
-            <tr className='text-center'>
+            <tr 
+            className={getBackgroundColor(dueDate) + ' text-center'}
+            >
                 <td>{id}</td>
                 <td>{name}</td>
                 <td>{priorityName}</td>
@@ -249,7 +269,9 @@ const Task = ({
                     </Form.Check>
                 </td>
                 <td>{formatTableDate(doneDate)}</td>
-                <td>
+                <td
+                    className='bg-light'
+                >
                     <Container>
                         <Row>
                             <Col>

@@ -11,8 +11,6 @@ const PaginationComponent = ({totalTasks, setTasks, currentPage, setCurrentPage}
     const pages = Math.ceil(totalTasks / 10);
     const items = [];
 
-    console.log(currentPage, pages, totalTasks)
-
     for (let number = currentPage; number <= pages && number <= currentPage + 4; number++) {
         items.push(
             <Pagination.Item 
@@ -96,23 +94,25 @@ const PaginationComponent = ({totalTasks, setTasks, currentPage, setCurrentPage}
     
     return (
         <>
-            <Pagination>
-                <Pagination.First
-                    onClick={handleFirstPage}   
-                />
-                <Pagination.Prev 
-                    onClick={handlePrevPage}
-                    disabled={currentPage === 1}
-                />
-                    {items} 
-                <Pagination.Next 
-                    onClick={handleNextPage}
-                />
-                <Pagination.Last
-                    onClick={handleLastPage}
-                    disabled={currentPage === pages}
-                />
-            </Pagination>
+            { totalTasks > 10 &&
+                <Pagination>
+                    <Pagination.First
+                        onClick={handleFirstPage}   
+                    />
+                    <Pagination.Prev 
+                        onClick={handlePrevPage}
+                        disabled={currentPage === 1}
+                    />
+                        {items} 
+                    <Pagination.Next 
+                        onClick={handleNextPage}
+                    />
+                    <Pagination.Last
+                        onClick={handleLastPage}
+                        disabled={currentPage === pages}
+                    />
+                </Pagination>
+            }
         </>
     );
 }

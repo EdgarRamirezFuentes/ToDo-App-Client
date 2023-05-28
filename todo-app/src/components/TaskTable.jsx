@@ -53,7 +53,7 @@ const TaskTable = ({tasks, setTasks, setCurrentPage, setTotalTasks}) => {
 
     return (
         <>
-            <Table striped bordered hover size="lg">
+            <Table bordered hover size="lg">
                 <thead
                     className="text-center"
                 >
