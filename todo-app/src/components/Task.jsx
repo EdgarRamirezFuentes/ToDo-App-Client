@@ -116,8 +116,9 @@ const Task = ({
                 const priority = document.getElementById('priority').value;
                 const dueDate = document.getElementById('dueDate').value;
 
-                if (!name || priority === '0') {
+                if (name == '' || priority === '0') {
                     MySwal.showValidationMessage('Name and priority are required');
+                    return;
                 }
 
                 if (dueDate !== '') {
