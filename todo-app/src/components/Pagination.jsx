@@ -4,6 +4,7 @@
  * @param {function} setTasks
  */
 
+import React from 'react';
 import Pagination from 'react-bootstrap/Pagination';
 import axios from 'axios';
 

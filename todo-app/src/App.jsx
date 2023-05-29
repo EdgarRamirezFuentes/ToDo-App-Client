@@ -41,100 +41,96 @@ function App() {
     })
   }, []);
 
-  const handleAddTask = () => {
-    MySwal.fire({
-      title: 'Add Task',
-      html: (
-        <Form>
-          <Form.Group>
-            <Form.Label>Task name</Form.Label>
-            <Form.Control type='text' id='name' />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Priority</Form.Label>
-            <Form.Control as='select' id='priority'>
-              <option value='0'>Select a priority</option>
-              <option value='1'>Low</option>
-              <option value='2'>Medium</option>
-              <option value='3'>High</option>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Due date</Form.Label>
-            <Form.Control type='date' id='dueDate' />
-          </Form.Group>
-        </Form>
-      ),
-      showCancelButton: true,
-      confirmButtonText: 'Add',
-      cancelButtonText: 'Cancel',
-      showLoaderOnConfirm: true,
-      allowOutsideClick: () => !Swal.isLoading(),
-      preConfirm: () => {
-        const name = document.getElementById('name').value;
-        const priority = document.getElementById('priority').value;
-        const dueDate = document.getElementById('dueDate').value;
+  const handleAddTask = async () => {
+    try {
+      const { value: formData, isConfirmed } = await MySwal.fire({
+        title: 'Add Task',
+        html:
+          <Form>
+            <Form.Group className='mb-3' controlId='formTaskName'>
+              <Form.Label>Task Name</Form.Label>
+              <Form.Control type='text' placeholder='Enter task name' />
+            </Form.Group>
+            <Form.Group className='mb-3' controlId='formTaskPriority'>
+              <Form.Label>Task Priority</Form.Label>
+              <Form.Select aria-label='Default select example'>
+                <option value='0'>Select a priority</option>
+                <option value='1'>Low</option>
+                <option value='2'>Medium</option>
+                <option value='3'>High</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className='mb-3' controlId='formTaskDueDate'>
+              <Form.Label>Task Due Date</Form.Label>
+              <Form.Control type='date' />
+            </Form.Group>
+          </Form>,
+        focusConfirm: false,
+        preConfirm: () => {
+          const name = document
+              .getElementById('name')
+              .value;
+          const priority = document
+              .getElementById('priority')
+              .value;
+          const dueDate = document
+              .getElementById('dueDate')
+              .value;
 
-        if (name === '' || priority === '0') {
-          Swal.showValidationMessage(
-            'Name and priority are required'
-          )
-          return;
-        }
-
-        if (dueDate !== '') {
-          const selectedDate = new Date(dueDate);
-          const today = new Date();
-
-          if (selectedDate <= today.setHours(0, 0, 0, 0)) {
-            Swal.showValidationMessage(
-              'Due date must be greater than today'
-            )
-            return;
+          if (name === '' || priority === '0') {
+              MySwal.showValidationMessage('Name and priority are required');
+              return;
           }
 
-        }
+          if (dueDate !== '') {
+              const selectedDate = new Date(dueDate);
+              const today = new Date();
 
-        const data = {
-          name,
-          priority,
-          dueDate: (dueDate !== '') ? new Date(dueDate).toISOString() : '',
-        };
+              if (selectedDate <= today.setHours(0, 0, 0, 0)) {
+                  MySwal.showValidationMessage('Due date must be greater than today');
+                  return;
+              }
+          }
 
-        console.log(data.dueDate);
+          const data = {
+              name,
+              priority,
+              dueDate: (dueDate !== '')
+                  ? new Date(dueDate).toISOString()
+                  : ''
+          };
 
-        return axios.post('http://localhost:9090/api/v1/todo/task', data)
-        .then((response) => {
-          MySwal.fire({
-            title: 'Task added',
-            icon: 'success',
-            timer: 1500,
-            showConfirmButton: false
-          });
+          return data;
+      }
+      });
+
+      if (formData && isConfirmed) {
+          const url = 'http://localhost:9090/api/v1/todo/task';
+          const response = await axios.post(url, formData);
+          const { task } = response.data;
+
+          MySwal.fire({title: 'Task created', icon: 'success', timer: 1500, showConfirmButton: false});
 
           updateTaskList();
-        })     
-        .catch((error) => {
-          console.log(error);
-          Swal.showValidationMessage(
-            `Request failed: ${error}`
-          )
-        })
-      },
-    })
+      }
+    }
+    catch (error) {
+      console.log(error);
+      MySwal.fire({title: 'Error', text: 'Something went wrong', icon: 'error', timer: 1500, showConfirmButton: false});
+    }
   }
 
-  const updateTaskList = () => {
-    axios.get(`http://localhost:9090/api/v1/todo/task/`)
-    .then((response) => {
+  
+  const updateTaskList = async () => {
+    try {
+      const response = await axios.get('http://localhost:9090/api/v1/todo/task');
       const { totalTasks, tasks } = response.data;
       setTasks(tasks);
       setTotalTasks(totalTasks);
       setCurrentPage(1);
-    })
-    .catch((error) => {
+    } catch (error) {
       console.log(error);
-    })
+    }
   }
 
   return (
