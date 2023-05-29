@@ -45,27 +45,33 @@ function App() {
     try {
       const { value: formData, isConfirmed } = await MySwal.fire({
         title: 'Add Task',
-        html:
+        html: (
           <Form>
-            <Form.Group className='mb-3' controlId='formTaskName'>
-              <Form.Label>Task Name</Form.Label>
-              <Form.Control type='text' placeholder='Enter task name' />
+            <Form.Group>
+              <Form.Label>Task name</Form.Label>
+              <Form.Control type='text' id='name' />
             </Form.Group>
-            <Form.Group className='mb-3' controlId='formTaskPriority'>
-              <Form.Label>Task Priority</Form.Label>
-              <Form.Select aria-label='Default select example'>
+            <Form.Group>
+              <Form.Label>Priority</Form.Label>
+              <Form.Control as='select' id='priority'>
                 <option value='0'>Select a priority</option>
                 <option value='1'>Low</option>
                 <option value='2'>Medium</option>
                 <option value='3'>High</option>
-              </Form.Select>
+              </Form.Control>
             </Form.Group>
-            <Form.Group className='mb-3' controlId='formTaskDueDate'>
-              <Form.Label>Task Due Date</Form.Label>
-              <Form.Control type='date' />
+            <Form.Group>
+              <Form.Label>Due date</Form.Label>
+              <Form.Control type='date' id='dueDate' />
             </Form.Group>
-          </Form>,
+          </Form>
+        ),
         focusConfirm: false,
+        showCancelButton: true,
+        confirmButtonText: 'Add',
+        cancelButtonText: 'Cancel',
+        cancelButtonColor: '#d33',
+        confirmButtonColor: '#28a745',
         preConfirm: () => {
           const name = document
               .getElementById('name')

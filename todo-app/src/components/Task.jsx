@@ -41,7 +41,7 @@ const Task = ({
 
     const handleDeleteTask = async() => {
         try {
-            const result = await MySwal.fire({
+            const { isConfirmed } = await MySwal.fire({
                 title: 'Are you sure?',
                 text: 'You will not be able to recover this task!',
                 icon: 'warning',
@@ -50,7 +50,7 @@ const Task = ({
                 cancelButtonText: 'No, keep it'
             });
 
-            if (result.isConfirmed) {
+            if (isConfirmed) {
                 const url = `http://localhost:9090/api/v1/todo/task/${id}`;
                 const response = await axios.delete(url);
 
