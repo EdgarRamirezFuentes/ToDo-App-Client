@@ -67,15 +67,12 @@ Front end project must run in port 8080.
 This project was developed using Docker containers to make installation and usage easier, but if you don't want to use Docker you can run the project and tests using the **npm commands** inside the todo-app directory, which contains the React App.
 
 ## Requirements
-- [Docker](https://www.docker.com/) (Only if you will use Docker to run the project)
-- [Node/npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (Only if you will not use Docker to run the project)
+- [Docker](https://www.docker.com/)
 - Code Editor or IDE (For this example we will use [Visual Studio Code](https://code.visualstudio.com/))
 - Install and Run the [ToDo App  API](https://github.com/EdgarRamirezFuentes/ToDo-App-API).
 
 
 ## Installation
-
-### Using Docker
 
 The best thing about using the project with docker is that you can install all the dependencies, test the project, and run the app using just one command, which is:
 ```bash
