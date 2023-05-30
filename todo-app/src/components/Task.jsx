@@ -136,7 +136,7 @@ const Task = ({
                 }
             });
 
-            if (formData && isConfirmed) {
+            if (isConfirmed) {
                 await axios.put(`http://localhost:9090/api/v1/todo/task/${id}`, formData);
                 MySwal.fire({title: 'Task edited', icon: 'success', timer: 1500, showConfirmButton: false});
                 updateTaskList();
