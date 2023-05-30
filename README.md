@@ -61,3 +61,58 @@ They need at least the following commands to run the project:
 - npm run tests – To run all tests in the front-end application 
 
 Front end project must run in port 8080. 
+
+# Usage
+
+This project was developed using Docker containers to make installation and usage easier, but if you don't want to use Docker you can run the project and tests using the **npm commands** inside the todo-app directory, which contains the React App.
+
+## Requirements
+- [Docker](https://www.docker.com/) (Only if you will use Docker to run the project)
+- [Node/npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) (Only if you will not use Docker to run the project)
+- Code Editor or IDE (For this example we will use [Visual Studio Code](https://code.visualstudio.com/))
+- Install and Run the [ToDo App  API](https://github.com/EdgarRamirezFuentes/ToDo-App-API).
+
+
+## Installation
+
+### Using Docker
+
+The best thing about using the project with docker is that you can install all the dependencies, test the project, and run the app using just one command, which is:
+```bash
+Windows/MacOs
+docker-compose up --build
+
+Linux
+sudo docker-compose up --build
+```
+
+Docker helped us to automate the node/npm installation, dependencies installation, running test, and running the app.
+
+Another advantage of using Docker is that you don't need to care about configuring the development environment in other computers, because Docker uses containers where the app runs, and it works in any computer you use because the Dockerfile contains the container configuration to make the app run in a correct development environment.
+
+### Steps
+
+- Install Docker Desktop 
+- Open Docker Desktop. As you can see, at this moment there is no container for our ToDo App Client (React App)
+![Docker init](./assets/docker-init.png)
+- Open this project in Visual Studio Code.
+![Open VS Code](./assets/open-vs.png)
+- Open a terminal in Visual Studio Code
+![Open terminal](./assets/open-terminal.png)
+- Run the following command in the terminal: ```docker compose up --build```
+![Docker Compose command](./assets/terminal-command.png)
+
+As you can see, after running the command, Docker will configure the container to run the app by installing node and the project dependencies.
+![Container Configuration](./assets/run-command.png)
+
+After the container was configured correctly, Docker will run the test using the command ```npm test```. If every test passed, Docker will run the app using the command ```npm run```
+![Docker container running](./assets/container-running.png)
+
+![Docker compose File](./assets/docker-compose-file.png)
+
+- As you can see, Docker shows that the app is running in ```http://localhost:8080/```.
+- Open your Web Browser and go to ```http://localhost:8080/```.
+
+![App running](./assets/running-app.png)
+
+Click [here](https://youtu.be/Wu-HqB15H1o) to see the app working.

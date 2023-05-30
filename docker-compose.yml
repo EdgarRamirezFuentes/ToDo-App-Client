@@ -7,6 +7,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8080:8080
-    command: sh -c "npm install --dev --silent && npm start"
+    command: sh -c "npm install --dev --silent && npm test && npm start"
     volumes:
       - ./todo-app:/todo-app
